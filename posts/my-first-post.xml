@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<post>
+    <date>19:54:35 11-15-10</date>
+    <tags>test,showdown,tralala</tags>
+    <content><![CDATA[
+    
+Showdown Demo
+-------------
+
+You can try out Showdown on this page:
+
+  - Type some [Markdown] text on the left side.
+  - See the corresponding HTML on the right.
+
+For a Markdown cheat-sheet, switch the right-hand window from *Preview* to *Syntax Guide*.
+
+Showdown is a JavaScript port of the original Perl version of Markdown.  You can get the full [source code] by clicking on the version number at the bottom of the page.
+
+Also check out [WMD, the Wysiwym Markdown Editor][wmd].  It'll be open source soon; email me at the address below if you'd like to help me test the standalone version.
+
+Some ampersand & ampersand inside and greater > than
+
+**Start with a [blank page] or edit this document in the left window.**
+
+  [Markdown]: http://daringfireball.net/projects/markdown/
+  [source code]: http://attacklab.net/showdown/showdown-v0.9.zip
+  [wmd]: http://wmd-editor.com/
+  [blank page]: ?blank=1 "Clear all text"
+  
+    ]]></content>
+</post>
