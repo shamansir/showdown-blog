@@ -1,5 +1,6 @@
 var _sdconv = new Showdown.converter();
-var _options = null;
+var _sw = {};
+_sw.options = null;
 
 $(document).ready(function(){
 
@@ -8,22 +9,24 @@ $(document).ready(function(){
                  urlQ.substring(urlQ.indexOf('?') + 1)
                  : "";
 
-    checkMobile();                 
-    loadOptions();
+    _sw.checkMobile();                 
+    _sw.loadOptions();
+    _sw.loadPostsList();
+    _sw.loadTagsCloud();
                  
     if ((code.length > 0) && 
         code.match(/^[\w\d-]+$/)) {            
-        loadPost(code);
+        _sw.loadPost(code);
     } else if ((code.length > 0) && 
                code.match(/^\*[\w\d,-]+/)) {
-        loadByTags(code);  
+        _sw.loadByTags(code);  
     } else {        
-        loadAllPosts();
+        _sw.loadAllPosts();
     }
     
 });
 
-function renderPost(postId, target, xml) {
+_sw.renderPost = function(postId, target, xml) {
     target.attr('id', 'sw-post-' + postId).addClass('sw-post');
     
     target.append($('<a>').addClass('sw-post-anchor').attr('name', postId));
@@ -34,13 +37,13 @@ function renderPost(postId, target, xml) {
     
     var dateTime = xml.find('datetime').text();
     target.append($('<div>').html(
-        _options 
+        _sw.options 
         ? "Posted at <span class=\"sw-datetime\">" + dateTime + "</span>"
         : "Posted at <span class=\"sw-datetime\">" + dateTime + "</span>"
     ).addClass('sw-post-time'));
 
     var tagsBlock = $('<ul>');
-    var tags = xml.find('tags').text().split(',');
+    var tags = xml.find('tags').text().split(',');    
     for (var tagIdx = 0; tagIdx < tags.length; tagIdx++) {
         var tag = tags[tagIdx];
         if ((tag.length > 0) && tag.match(/^[\w\d-]+/)) {
@@ -52,43 +55,45 @@ function renderPost(postId, target, xml) {
     target.append(tagsBlock.addClass('sw-post-tags'));
     
     var anchorlink = $('<a>').attr('href', '#' + postId).attr('title', postId).text('#');
-    target.append($('<div>').text(_options ? _options.anchorPrefix : "Anchor: ")
+    target.append($('<div>').text(_sw.options ? _sw.options.anchorPrefix : "Anchor: ")
                             .append(anchorlink)
                             .addClass('sw-post-anchorlink'));
     
     var permalink = $('<a>').attr('href', '?' + postId).attr('title', postId).text('&');
-    target.append($('<div>').text(_options ? _options.permalinkPrefix : "Permalink: ")
+    target.append($('<div>').text(_sw.options ? _sw.options.permalinkPrefix : "Permalink: ")
                             .append(permalink)
                             .addClass('sw-post-permalink'));
     
 }
 
-function applyOptions() {
+_sw.applyOptions = function() {
     
 }
 
-function loadOptions() {
+_sw.loadOptions = function() {
     $.ajax({
         type: "GET",
 	    url: "./prefs.xml",
 	    dataType: "xml",
 	    success: function(xml) {
-	        _options = {};
-            _options.title = $(xml).find('title').text();
-            _options.description = $(xml).find('description').text();
-            _options.timeFormat = $(xml).find('date-format').text();            
-            _options.dateFormat = $(xml).find('time-format').text();
-            _options.postedAt = $(xml).find('posted-at').text();
-            _options.permalinkPrefix = $(xml).find('permalink-prefix').text();
-            _options.anchorPrefix = $(xml).find('anchor-prefix').text();
+	        _sw.options = {};
+            _sw.options.title = $(xml).find('title').text();
+            _sw.options.description = $(xml).find('description').text();
+            _sw.options.timeFormat = $(xml).find('date-format').text();            
+            _sw.options.dateFormat = $(xml).find('time-format').text();
+            _sw.options.postedAt = $(xml).find('posted-at').text();
+            _sw.options.permalinkPrefix = $(xml).find('permalink-prefix').text();
+            _sw.options.anchorPrefix = $(xml).find('anchor-prefix').text();
+            _sw.options.showPostsList = $(xml).find('show-post-lists').text().match(/^true$/);
+            _sw.options.showTagsCloud = $(xml).find('show-tags-cloud').text().match(/^true$/);
 	    },
 	    complete: function() {
-	        if (_options) applyOptions();
+	        if (_sw.options) _sw.applyOptions();
 	    }
     });
 }
 
-function loadPost(postId) {
+_sw.loadPost = function(postId) {
     if (!postId.match(/^[\w\d-]+/)) {
         alert('post ID \'' + postId + '\' is not ok');
     }
@@ -100,41 +105,66 @@ function loadPost(postId) {
         success: function(xml) {
            var target = $('<div>');
            $('body #posts').append(target);
-           renderPost(postId, target, $(xml));
+           _sw.renderPost(postId, target, $(xml));
        }
     });
 }
 
-function loadByTags(tagsCode) {
+_sw.loadByTags = function(tagsCode) {
     if (!tagsCode.match(/^\*[\w\d,-]+/)) {
         alert('tags code \'' + tagsCode + '\' is not ok');
     }
 
 }
 
-function loadAllPosts() {
+_sw.loadAllPosts = function() {
     $.ajax({
         type: "GET",
 	    url: "./posts.xml",
 	    dataType: "xml",
 	    success: function(xml) {
             $(xml).find('posts').find('post').each(function() {
-                loadPost($(this).text());
+                _sw.loadPost($(this).text());
             });
 	    },
 	    error: function(req, text, error) {
 	        alert('posts.xml is not found');
 	    }
-    });
+    }); 
 }
 
-function checkMobile() {
+_sw.checkMobile = function() {
     if (navigator.userAgent.match(/Android/i) ||
         navigator.userAgent.match(/webOS/i) ||
         navigator.userAgent.match(/iPhone/i) ||
         navigator.userAgent.match(/iPod/i)
     ){
         $('body').addClass('sw-mobile');
+    }
+}
+
+_sw.loadPostsList = function() {
+    if (!_sw.options || (_sw.options && _sw.options.showPostsList)) {
+        $.ajax({
+            type: "GET",
+	        url: "./posts.xml",
+	        dataType: "xml",
+	        success: function(xml) {
+	            var i = 0;
+                $(xml).find('posts').find('post').each(function() {
+                    // TODO:
+                });
+	        },
+	        error: function(req, text, error) {
+	            alert('posts.xml is not found');
+	        }
+        });     
+    }
+}
+
+_sw.loadTagsCloud = function() {
+    if (!_sw.options || (_sw.options && _sw.options.showTagsCloud)) {
+        
     }
 }
 
