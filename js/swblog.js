@@ -1,25 +1,27 @@
 var _sdconv = new Showdown.converter();
 var _sw = {};
 _sw.options = null;
+_sw.xmlCache = {};
 _sw.tagsLevels = {1:'rare',2:'repeated',3:'recent',5:'frequent',7:'common',10:'massive'};
 
 $(document).ready(function(){
 
     var urlQ = window.location.href;
     var code = (urlQ.indexOf('?') >= 0) ?
-                 urlQ.substring(urlQ.indexOf('?') + 1)
-                 : "";
+                urlQ.substring(urlQ.indexOf('?') + 1)
+                : "";
+                
+    var tagsMode = (code.length > 0) && code.match(/^\*[\w\d,-]+/);
+    var singleMode = (code.length > 0) && code.match(/^[\w\d-]+$/);    
 
     _sw.checkMobile();                 
     _sw.loadOptions();
-    _sw.loadPostsList();
+    _sw.loadPostsList(tagsMode || singleMode);
     _sw.loadTagsCloud();
                  
-    if ((code.length > 0) && 
-        code.match(/^[\w\d-]+$/)) {            
-        _sw.loadPost(code);
-    } else if ((code.length > 0) && 
-               code.match(/^\*[\w\d,-]+/)) {
+    if (singleMode) {            
+        _sw.loadPost(code, true);
+    } else if (tagsMode) {
         _sw.loadByTags(code);  
     } else {        
         _sw.loadAllPosts();
@@ -36,17 +38,41 @@ _sw.log = function(text) {
 }
 
 _sw.getXml = function(_url, _success, _complete, _error) {
+
+    var useCache = (!_sw.options || (_sw.options && _sw.options.useXmlCache)); 
+
+    if (useCache && _sw.xmlCache[_url]) {
+        _success(_sw.xmlCache[_url]);
+        return;
+    }
+
     $.ajax({
         type: "GET",
 	    url: _url,
 	    dataType: "xml",
-	    success: _success,
+	    success: function(xml) { _sw.xmlCache[_url] = xml; _success(xml); },
 	    complete: _complete,
 	    error: _error
     });
 }
 
-_sw.renderPost = function(postId, target, xml) {
+_sw.checkMobile = function() {
+    if (navigator.userAgent.match(/Android/i) ||
+        navigator.userAgent.match(/webOS/i) ||
+        navigator.userAgent.match(/iPhone/i) ||
+        navigator.userAgent.match(/iPod/i)
+    ){
+        $('body').addClass('sw-mobile');
+    }
+}
+
+_sw.renderPost = function(postId, target, xml, isSingle) {
+    if (isSingle) {
+        document.title = _sw.options 
+                         ? _sw.options.title + " / " + xml.find('title').text()
+                         : "Blog / " + xml.find('title').text();
+    }
+
     target.attr('id', 'sw-post-' + postId).addClass('sw-post');
     
     target.append($('<a>').addClass('sw-post-anchor').attr('name', postId));
@@ -56,11 +82,15 @@ _sw.renderPost = function(postId, target, xml) {
     ).addClass('sw-post-content'));
     
     var dateTime = xml.find('datetime').text();
-    target.append($('<div>').html(
-        _sw.options 
-        ? "Posted at <span class=\"sw-datetime\">" + dateTime + "</span>"
-        : "Posted at <span class=\"sw-datetime\">" + dateTime + "</span>"
-    ).addClass('sw-post-time'));
+    if (dateTime.length > 0) {
+        target.append($('<div>').html(
+            _sw.options 
+            ? formatDatetime(xml.find('datetime').text(),
+                             _sw.options.postedAt,
+                             _sw.options.dateFormat)
+            : "Posted at <span class=\"sw-datetime\">" + dateTime + "</span>"
+        ).addClass('sw-post-time'));
+    }
 
     var tagsBlock = $('<ul>');
     var tags = xml.find('tags').text().split(',');    
@@ -86,23 +116,19 @@ _sw.renderPost = function(postId, target, xml) {
     
 }
 
-_sw.applyOptions = function() {
-    
-}
-
 _sw.loadOptions = function() {
     _sw.getXml("./prefs.xml", 
                function(xml) { // success
 	                _sw.options = {};
                     _sw.options.title = $(xml).find('title').text();
                     _sw.options.description = $(xml).find('description').text();
-                    _sw.options.timeFormat = $(xml).find('date-format').text();            
-                    _sw.options.dateFormat = $(xml).find('time-format').text();
+                    _sw.options.dateFormat = $(xml).find('date-format').text();
                     _sw.options.postedAt = $(xml).find('posted-at').text();
                     _sw.options.permalinkPrefix = $(xml).find('permalink-prefix').text();
                     _sw.options.anchorPrefix = $(xml).find('anchor-prefix').text();
                     _sw.options.showPostsList = $(xml).find('show-post-lists').text().match(/^true$/);
                     _sw.options.showTagsCloud = $(xml).find('show-tags-cloud').text().match(/^true$/);
+                    _sw.options.useXmlCache = $(xml).find('use-xml-cache').text().match(/^true$/);
                     var tLevels = $(xml).find('tags-levels').text();
                     if ((tLevels.length > 0) && tLevels.match(/^[\w\d\s\{\}\:\-\']+$/)) _sw.tagsLevels = eval(tLevels);
 	           },
@@ -111,14 +137,10 @@ _sw.loadOptions = function() {
 	           });
 }
 
-_sw.checkMobile = function() {
-    if (navigator.userAgent.match(/Android/i) ||
-        navigator.userAgent.match(/webOS/i) ||
-        navigator.userAgent.match(/iPhone/i) ||
-        navigator.userAgent.match(/iPod/i)
-    ){
-        $('body').addClass('sw-mobile');
-    }
+_sw.applyOptions = function() {
+    document.title = _sw.options.title;
+    $('header h1 a').text(_sw.options.title);
+    $('header p#description').text(_sw.options.description);    
 }
 
 _sw.loadAllPosts = function() {
@@ -134,7 +156,7 @@ _sw.loadAllPosts = function() {
 	           });
 }
 
-_sw.loadPost = function(postId) {
+_sw.loadPost = function(postId, isSingle) {
     if (!postId.match(/^[\w\d-]+/)) {
         _sw.notify('post ID \'' + postId + '\' is not ok');
     }
@@ -143,7 +165,7 @@ _sw.loadPost = function(postId) {
                function(xml) { // success
                    var target = $('<div>');
                    $('body #posts').append(target);
-                   _sw.renderPost(postId, target, $(xml));
+                   _sw.renderPost(postId, target, $(xml), isSingle);
                },
                null, // complete
                function() { // error
@@ -155,6 +177,10 @@ _sw.loadByTags = function(tagsCode) {
     if (!tagsCode.match(/^\*[\w\d,-]+/)) {
         _sw.notify('tags code \'' + tagsCode + '\' is not ok');
     }
+    
+    document.title = _sw.options 
+                     ? _sw.options.title + " / " + tagsCode
+                     : "Blog / " + tagsCode;    
     
     _sw.getXml("./posts.xml",
                function(xml) { // success
@@ -170,7 +196,7 @@ _sw.loadByTags = function(tagsCode) {
     
 }
 
-_sw.addPostLink = function(target, postId) {
+_sw.addPostLink = function(target, postId, isExternal) {
     if (!postId.match(/^[\w\d-]+/)) {
         _sw.notify('post ID \'' + postId + '\' is not ok');
     }
@@ -178,7 +204,7 @@ _sw.addPostLink = function(target, postId) {
     _sw.getXml("./posts/" + postId + ".xml",
                function(xml) { // success
                    var postTitle = $(xml).find('post').find('title').text();
-                   var postlink = $('<a>').attr('href', '#' + postId)
+                   var postlink = $('<a>').attr('href', isExternal ? ('?' + postId) : ('#' + postId))
                                           .attr('title', (postTitle.length > 0) ? postTitle : postId)
                                           .text((postTitle.length > 0) ? postTitle : postId)
                                           .addClass('sw-posts-list-link');
@@ -186,14 +212,14 @@ _sw.addPostLink = function(target, postId) {
                });
 }
 
-_sw.loadPostsList = function() {
+_sw.loadPostsList = function(isExternal) {
     if (!_sw.options || (_sw.options && _sw.options.showPostsList)) {
         _sw.getXml("./posts.xml",
                    function(xml) { // success
                        var target = $('<ul>');
                        $('#posts-list').append(target).addClass('sw-posts-list');                   
                        $(xml).find('posts').find('post').each(function() {
-                           _sw.addPostLink(target, $(this).text());
+                           _sw.addPostLink(target, $(this).text(), isExternal);
                        });
                    }, 
                    null, // complete
@@ -291,5 +317,11 @@ _sw.tagLevelByCount = function(count) {
         if (count >= level) return _sw.tagsLevels[level]; 
     }
     return 'default';
+}
+
+_sw.formatDatetime = function(datetime, descr, dateFormat) {
+    if (datetime.length <= 0) return '-';
+    var formattedDate = formatDate(new Date(datetime), dateFormat);
+    return descr.replace(/%%/g, formattedDate);
 }
 

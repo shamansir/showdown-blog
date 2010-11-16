@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <post>
-    <datetime>19:54:35 11-15-10</datetime>
+    <title>First post</title>
+    <datetime>11 Oct 2010 19:54:35</datetime>
     <tags>showdown,tags,trolo</tags>
-    <title>Showdown Demo</title>    
     <content><![CDATA[
     
-Showdown Demo Second post
+Showdown Demo First post
 -------------
 
 You can try out Showdown on this page:
