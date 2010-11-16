@@ -8,8 +8,7 @@
       <title>First post</title>
       <link>http://shamansir.madfire.net/blog?my-first-post</link>
       <description>
-        <pre>
-          <code>
+        <p style="white-space: pre;">
     
 Showdown Demo First post
 -------------
@@ -36,8 +35,7 @@ Some ampersand &amp; ampersand inside and greater &gt; than
   [wmd]: http://wmd-editor.com/
   [blank page]: ?blank=1 "Clear all text"
   
-    </code>
-        </pre>
+    </p>
       </description>
       <category>showdown,tags,trolo</category>
       <guid>my-first-post</guid>
@@ -47,8 +45,7 @@ Some ampersand &amp; ampersand inside and greater &gt; than
       <title>Using this tool</title>
       <link>http://shamansir.madfire.net/blog?my-second-post</link>
       <description>
-        <pre>
-          <code>
+        <p style="white-space: pre;">
     
 Using this tool
 ---------------
@@ -79,8 +76,7 @@ Showdown is a Javascript port of Markdown.  You can get the full [source code] b
   [source code]: http://www.attacklab.net/showdown-v0.9.zip
   [blank page]: ?blank=1 "Clear all text"
     
-    </code>
-        </pre>
+    </p>
       </description>
       <category>showdown,editor,hohoho</category>
       <guid>my-second-post</guid>
