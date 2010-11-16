@@ -10,14 +10,15 @@ $(document).ready(function(){
     var code = (urlQ.indexOf('?') >= 0) ?
                 urlQ.substring(urlQ.indexOf('?') + 1)
                 : "";
+    if (code.indexOf('#') > 0) code = code.substring(0, code.indexOf('#'));
                 
     var tagsMode = (code.length > 0) && code.match(/^\*[\w\d,-]+/);
     var singleMode = (code.length > 0) && code.match(/^[\w\d-]+$/);    
 
     _sw.checkMobile();                 
     _sw.loadOptions();
-    _sw.loadPostsList(tagsMode || singleMode);
-    _sw.loadTagsCloud();
+    _sw.showPostsList(tagsMode || singleMode);
+    _sw.showTagsCloud();
                  
     if (singleMode) {            
         _sw.loadPost(code, true);
@@ -85,9 +86,9 @@ _sw.renderPost = function(postId, target, xml, isSingle) {
     if (dateTime.length > 0) {
         target.append($('<div>').html(
             _sw.options 
-            ? formatDatetime(xml.find('datetime').text(),
-                             _sw.options.postedAt,
-                             _sw.options.dateFormat)
+            ? _sw.formatDatetime(xml.find('datetime').text(),
+                                 _sw.options.postedAt,
+                                 _sw.options.dateFormat)
             : "Posted at <span class=\"sw-datetime\">" + dateTime + "</span>"
         ).addClass('sw-post-time'));
     }
@@ -120,15 +121,16 @@ _sw.loadOptions = function() {
     _sw.getXml("./prefs.xml", 
                function(xml) { // success
 	                _sw.options = {};
-                    _sw.options.title = $(xml).find('title').text();
-                    _sw.options.description = $(xml).find('description').text();
-                    _sw.options.dateFormat = $(xml).find('date-format').text();
-                    _sw.options.postedAt = $(xml).find('posted-at').text();
-                    _sw.options.permalinkPrefix = $(xml).find('permalink-prefix').text();
-                    _sw.options.anchorPrefix = $(xml).find('anchor-prefix').text();
-                    _sw.options.showPostsList = $(xml).find('show-post-lists').text().match(/^true$/);
-                    _sw.options.showTagsCloud = $(xml).find('show-tags-cloud').text().match(/^true$/);
-                    _sw.options.useXmlCache = $(xml).find('use-xml-cache').text().match(/^true$/);
+	                var root = $(xml).find('options');
+                    _sw.options.title = root.find('title').text();
+                    _sw.options.description = root.find('description').text();
+                    _sw.options.dateFormat = root.find('date-format').text();
+                    _sw.options.postedAt = root.find('posted-at').text();
+                    _sw.options.permalinkPrefix = root.find('permalink-prefix').text();
+                    _sw.options.anchorPrefix = root.find('anchor-prefix').text();
+                    _sw.options.showPostsList = root.find('show-post-lists').text().match(/^true$/);
+                    _sw.options.showTagsCloud = root.find('show-tags-cloud').text().match(/^true$/);
+                    _sw.options.useXmlCache = root.find('use-xml-cache').text().match(/^true$/);
                     var tLevels = $(xml).find('tags-levels').text();
                     if ((tLevels.length > 0) && tLevels.match(/^[\w\d\s\{\}\:\-\']+$/)) _sw.tagsLevels = eval(tLevels);
 	           },
@@ -212,7 +214,7 @@ _sw.addPostLink = function(target, postId, isExternal) {
                });
 }
 
-_sw.loadPostsList = function(isExternal) {
+_sw.showPostsList = function(isExternal) {
     if (!_sw.options || (_sw.options && _sw.options.showPostsList)) {
         _sw.getXml("./posts.xml",
                    function(xml) { // success
@@ -277,7 +279,7 @@ _sw.pushTagsStats = function(allTags, postId, callback) {
                });
 }
 
-_sw.loadTagsCloud = function() {
+_sw.showTagsCloud = function() {
     if (!_sw.options || (_sw.options && _sw.options.showTagsCloud)) {
         _sw.getXml("./posts.xml",
                    function(xml) { // success
@@ -321,7 +323,7 @@ _sw.tagLevelByCount = function(count) {
 
 _sw.formatDatetime = function(datetime, descr, dateFormat) {
     if (datetime.length <= 0) return '-';
-    var formattedDate = formatDate(new Date(datetime), dateFormat);
+    var formattedDate = '<span class=\'sw-datetime\'>' + formatDate(new Date(datetime), dateFormat) + '</span>';
     return descr.replace(/%%/g, formattedDate);
 }
 

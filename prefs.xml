@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<options>
+    <title>shaman.sir blog</title>
+    <description>my little funny blog</description>    
+    
+    <use-xml-cache>true</use-xml-cache>
+
+    <show-post-lists>true</show-post-lists>
+    <show-tags-cloud>true</show-tags-cloud>
+
+    <date-format>E, dd NNN yyyy HH:mm</date-format>    
+    <posted-at>Posted at: %%</posted-at>
+    
+    <permalink-prefix></permalink-prefix>
+    <anchor-prefix></anchor-prefix>
+    
+</options>
