@@ -49,11 +49,19 @@ a:hover {
 }
 
 #posts .sw-post .sw-post-content {
-    padding: 0 5px 5px 12px;
+    padding: 0 5px 0 12px;
+}
+
+#posts .sw-post .sw-post-content p {
+    line-height: 1.3em;
+}
+
+#posts .sw-post .sw-post-content pre {
+    font-size: 0.9em;
 }
 
 h2.sw-post-title {
-    margin-top: 40px;
+    margin-top: 60px;
 }
 
 h2.sw-post-title a {
@@ -68,10 +76,14 @@ h2.sw-post-title a {
     padding: 4px;
 }
 
-.sw-post-info > div, 
+.sw-post-info div, 
 .sw-post-info > ul,
 .sw-post-info > ul > li {
     display: inline;
+}
+
+.sw-post-info a {
+    border-bottom: none;    
 }
 
 .sw-post-info .sw-datetime {
@@ -79,6 +91,71 @@ h2.sw-post-title a {
     color: #003;
 }
 
+.sw-post-info .sw-post-links {
+    float: right;
+}
+
+.sw-post-info .sw-post-links > div {
+    margin-left: 5px;
+}
+
 .sw-post-info .sw-datetime:hover {
     background-color: #eee;
+}
+
+.sw-post-info ul.sw-post-tags {
+    display: block;
+    padding-left: 0;
+    margin-top: 2px;
+    margin-bottom: 0;
+    font-size: 0.8em;
+}
+
+.sw-post-info ul.sw-post-tags li {
+    margin-right: 5px;   
+}
+
+.sw-post-info ul.sw-post-tags li a {
+
+}
+
+#posts-list {
+    position: absolute;
+    right: 72%;
+    top: 168px;
+}
+
+#posts-list ul {
+
+}
+
+#posts-list ul li {
+
+}
+
+#tagcloud {
+    position: absolute;
+    left: 72%;
+    top: 168px;
+}
+
+#tagcloud ul {
+}
+
+#tagcloud ul li {
+}
+
+.sw-mobile #posts-list {
+
+}
+
+.sw-mobile #tagcloud {
+
+}
+
+#copyright {
+    border-top: 1px solid #666;
+    margin-top: 20px;
+    font-size: 0.8em;
+    text-align: justify;
 }

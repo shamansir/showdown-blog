@@ -164,9 +164,24 @@ _sw.renderPost = function(postId, target, xml, isSingle) {
             : "Posted at <span class=\"sw-datetime\">" + dateTime + "</span>"
         ).addClass('sw-post-time'));
     }
-
+    
+    var linksBlock = $('<div>');
+    
+    var anchorlink = $('<a>').attr('href', _sw.postAnchor(postId)).attr('title', postId).text('#');
+    linksBlock.append($('<div>').text(_sw.options ? _sw.options.anchorPrefix : "Anchor: ")
+                                .append(anchorlink)
+                                .addClass('sw-post-anchorlink'));
+    
+    var permalink = $('<a>').attr('href', _sw.postUrl(postId)).attr('title', postId).text('&');
+    linksBlock.append($('<div>').text(_sw.options ? _sw.options.permalinkPrefix : "Permalink: ")
+                                .append(permalink)
+                                .addClass('sw-post-permalink'));
+                            
+    infoBlock.append(linksBlock.addClass('sw-post-links'));
+    
     var tagsBlock = $('<ul>');
-    var tags = xml.find('tags').text().split(',');    
+    var tags = xml.find('tags').text().split(',');
+    if ((tags.length == 0) || (tags[0].length == 0)) tagsBlock.hide();
     for (var tagIdx = 0; tagIdx < tags.length; tagIdx++) {
         var tag = tags[tagIdx];
         if ((tag.length > 0) && tag.match(/^[\w\d-]+/)) {
@@ -176,17 +191,7 @@ _sw.renderPost = function(postId, target, xml, isSingle) {
         }
     }
     infoBlock.append(tagsBlock.addClass('sw-post-tags'));
-    
-    var anchorlink = $('<a>').attr('href', _sw.postAnchor(postId)).attr('title', postId).text('#');
-    infoBlock.append($('<div>').text(_sw.options ? _sw.options.anchorPrefix : "Anchor: ")
-                               .append(anchorlink)
-                               .addClass('sw-post-anchorlink'));
-    
-    var permalink = $('<a>').attr('href', _sw.postUrl(postId)).attr('title', postId).text('&');
-    infoBlock.append($('<div>').text(_sw.options ? _sw.options.permalinkPrefix : "Permalink: ")
-                               .append(permalink)
-                               .addClass('sw-post-permalink'));
-                            
+        
     target.append(infoBlock);        
     
 }
