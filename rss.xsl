@@ -10,14 +10,15 @@
                 <description><xsl:value-of select="$prefs/options/description"/></description>               
                 <xsl:for-each select="document('posts.xml')/posts/post">
                     <item>
-                        <xsl:variable name="postId" select="." />                    
-                        <xsl:variable name="post" select="document(concat('posts/', $postId, '.xml'))" />
-                        <title><xsl:value-of select="$post/post/title" /></title>
-                        <link><xsl:value-of select="concat($link, '?', $postId)" /></link>
-                        <description><xsl:value-of select="$post/post/content" /></description>
-                        <category><xsl:value-of select="$post/post/tags" /></category>
-		                <guid><xsl:value-of select="$postId" /></guid>
-		                <pubDate><xsl:value-of select="$post/post/datetime" /></pubDate>
+                         
+                         <xsl:variable name="postId" select="." />                    
+                         <xsl:variable name="post" select="document(concat('posts/', $postId, '.xml'))" />
+                         <title><xsl:value-of select="$post/post/title" /></title>
+                         <link><xsl:value-of select="concat($link, '?', $postId)" /></link>
+                         <description><pre><code><xsl:value-of select="$post/post/content" /></code></pre></description>
+                         <category><xsl:value-of select="$post/post/tags" /></category>
+		                 <guid><xsl:value-of select="$postId" /></guid>
+		                 <pubDate><xsl:value-of select="$post/post/datetime" /></pubDate>
                     </item>
                 </xsl:for-each>
             </channel>
