@@ -15,7 +15,7 @@
                          <xsl:variable name="post" select="document(concat('posts/', $postId, '.xml'))" />
                          <title><xsl:value-of select="$post/post/title" /></title>
                          <link><xsl:value-of select="concat($link, '?', $postId)" /></link>
-                         <description><pre><code><xsl:value-of select="$post/post/content" /></code></pre></description>
+                         <description><p style="white-space: pre;"><xsl:value-of select="$post/post/content" /></p></description>
                          <category><xsl:value-of select="$post/post/tags" /></category>
 		                 <guid><xsl:value-of select="$postId" /></guid>
 		                 <pubDate><xsl:value-of select="$post/post/datetime" /></pubDate>
