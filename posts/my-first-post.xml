@@ -5,8 +5,7 @@
     <tags>showdown,tags,trolo</tags>
     <content><![CDATA[
     
-Showdown Demo First post
--------------
+### Showdown Demo First post
 
 Русский текст
 
@@ -20,6 +19,10 @@ For a Markdown cheat-sheet, switch the right-hand window from *Preview* to *Synt
 Showdown is a JavaScript port of the original Perl version of Markdown.  You can get the full [source code] by clicking on the version number at the bottom of the page.
 
 Also check out [WMD, the Wysiwym Markdown Editor][wmd].  It'll be open source soon; email me at the address below if you'd like to help me test the standalone version.
+
+    public class TestClass {
+       public void testMethod();
+    }
 
 Some ampersand & ampersand inside and greater > than
 

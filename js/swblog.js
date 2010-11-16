@@ -79,6 +79,12 @@ _sw.renderPost = function(postId, target, xml, isSingle) {
     
     target.append($('<a>').addClass('sw-post-anchor').attr('name', postId));
     
+    target.append($('<h2>').addClass('sw-post-title').append(
+        $('<a>').attr('title', xml.find('title').text())
+                .attr('href', '?' + postId)
+                .text(xml.find('title').text())
+    ));    
+    
     target.append($('<div>').html(
         _sdconv.makeHtml(xml.find('content').text())
     ).addClass('sw-post-content'));
