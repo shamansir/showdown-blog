@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <options>
     <title>shaman.sir blog</title>
-    <description>my little funny blog</description>    
+    <description>my little funny blog</description>
+    <link>http://shamansir.madfire.net/blog</link>    
     
     <use-xml-cache>true</use-xml-cache>
 

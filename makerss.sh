@@ -1,1 +1,1 @@
-xsltproc rss.xsl posts.xml > rss.xml
+xsltproc ./rss.xsl ./posts.xml > ./rss.xml

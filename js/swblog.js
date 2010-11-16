@@ -3,6 +3,7 @@ var _sw = {};
 _sw.options = null;
 _sw.xmlCache = {};
 _sw.tagsLevels = {1:'rare',2:'repeated',3:'recent',5:'frequent',7:'common',10:'popular',14:'massive'};
+_sw.rootLink = "#";
 
 $(document).ready(function(){
 
@@ -133,6 +134,7 @@ _sw.loadOptions = function() {
                     _sw.options.useXmlCache = root.find('use-xml-cache').text().match(/^true$/);
                     var tLevels = $(xml).find('tags-levels').text();
                     if ((tLevels.length > 0) && tLevels.match(/^[\w\d\s\{\}\:\-\']+$/)) _sw.tagsLevels = eval(tLevels);
+                    if ($(xml).find('link').text().length > 0) _sw.rootLink = $(xml).find('link').text();                    
 	           },
 	           function() { // complete
         	        if (_sw.options) _sw.applyOptions();
@@ -141,8 +143,11 @@ _sw.loadOptions = function() {
 
 _sw.applyOptions = function() {
     document.title = _sw.options.title;
-    $('header h1 a').text(_sw.options.title);
-    $('header p#description').text(_sw.options.description);    
+    var rootAnchor = $('.header h1 a');
+    rootAnchor.attr('href', _sw.rootLink);
+    rootAnchor.attr('title', _sw.options.title);    
+    rootAnchor.text(_sw.options.title);
+    $('.header p#description').text(_sw.options.description);    
 }
 
 _sw.loadAllPosts = function() {
