@@ -14,5 +14,6 @@
     
     <permalink-prefix></permalink-prefix>
     <anchor-prefix></anchor-prefix>
+    <loading-text>...</loading-text>
     
 </options>
