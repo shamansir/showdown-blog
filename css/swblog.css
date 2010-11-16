@@ -21,12 +21,12 @@ a:hover {
 }
 
 .header {
+    margin-top: 60px;
     margin-bottom: 60px;
 }
 
 .header h1 {
     text-align: center;
-    margin-top: 60px;
     margin-bottom: 0;
 }
 
@@ -44,6 +44,41 @@ a:hover {
     font-style: italic;
 }
 
+#posts {
+
+}
+
+#posts .sw-post .sw-post-content {
+    padding: 0 5px 5px 12px;
+}
+
+h2.sw-post-title {
+    margin-top: 40px;
+}
+
 h2.sw-post-title a {
     color: #333;
+}
+
+.sw-post-info {
+    display: block;
+    color: #999;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;
+    padding: 4px;
+}
+
+.sw-post-info > div, 
+.sw-post-info > ul,
+.sw-post-info > ul > li {
+    display: inline;
+}
+
+.sw-post-info .sw-datetime {
+    padding-left: 3px;
+    color: #003;
+}
+
+.sw-post-info .sw-datetime:hover {
+    background-color: #eee;
 }
