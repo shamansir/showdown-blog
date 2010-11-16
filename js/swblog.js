@@ -2,7 +2,7 @@ var _sdconv = new Showdown.converter();
 var _sw = {};
 _sw.options = null;
 _sw.xmlCache = {};
-_sw.tagsLevels = {1:'rare',2:'repeated',3:'recent',5:'frequent',7:'common',10:'massive'};
+_sw.tagsLevels = {1:'rare',2:'repeated',3:'recent',5:'frequent',7:'common',10:'popular',14:'massive'};
 
 $(document).ready(function(){
 
@@ -315,10 +315,11 @@ _sw.showTagsCloud = function() {
 
 _sw.tagLevelByCount = function(count) {
     if (!_sw.tagsLevels) return 'undefined'; 
+    var levelResult = 'default';
     for (var level in _sw.tagsLevels) {
-        if (count >= level) return _sw.tagsLevels[level]; 
+        if (count >= level) levelResult = _sw.tagsLevels[level]; 
     }
-    return 'default';
+    return levelResult;
 }
 
 _sw.formatDatetime = function(datetime, descr, dateFormat) {
