@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <posts>
-    <post>my-first-post</post>
-    <post>my-second-post</post>    
+    <post>how-to-add-post</post>
+    <post>url-format</post>
+    <post>configuration</post>
+    <post>different-contexts</post>
+    <post>main-page</post>
+    <post>generating-rss</post>
 </posts>

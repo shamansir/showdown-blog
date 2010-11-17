@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<post>
+    <title>URL format</title>
+    <datetime>17 Nov 2010 13:15</datetime>
+    <tags>url,links,tags,post,contexts</tags>
+    <content><![CDATA[
+
+ * Link to the post at the blog page: `...html#foo-bar-post`
+ * Link to the post separate page: `...html?foo-bar-post`
+ * Link to the posts with specified tag: `...html?*foo`
+ * Link to the posts with specified tags: `...html?*foo,bar`
+ * Link to the post page in different context (see below): `...html?de:foo-bar-post`
+ * Link to the posts with tags in different context (see below): `...html?de:*foo,bar`
+
+    ]]></content>
+</post>

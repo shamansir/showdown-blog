@@ -113,10 +113,11 @@ _sw.getXml = function(_url, _success, _complete, _error) {
 	        } else _success(xml, status, req);
 	    },
 	    complete: function(req, status) {
-	        if (!useCache) _complete(req, status);
+	        if (!useCache && _complete) _complete(req, status);
 	    },
 	    error: function(req, status, error) {
-	        _error(req, status, error);
+	        if (_error) _error(req, status, error);
+	        _sw.notify(status + ' ' + error);
 	    }
     });
 }

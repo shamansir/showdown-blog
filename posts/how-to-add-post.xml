@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<post>
+    <title>How To Add New Post</title>
+    <datetime>17 Nov 2010 13:11</datetime>
+    <tags>post,posts,markdown,datetime,xml</tags>
+    <content><![CDATA[
+
+To add new post, just add any `<foo-bar-post>.xml` in `./posts` catalog and then add the corresponding entry into `./posts.xml`  file.
+
+`<foo-bar-post>.xml` format is (all elements are required):
+
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <post>
+        <title>Foo Bar Post</title>
+        <datetime>11 Oct 2010 19:54:35</datetime>
+        <tags>foo,bar</tags>
+        <content>
+
+            >>> Your Markdown content here <<<
+
+        </content>
+    </post>
+
+<sub>* Wrap content with `CDATA` (see example posts) to ensure that your markup will not break xml</sub>
+
+<sub>* `datetime` field content is passed to JavaScript `new Date(...)` constructor, so you just need to be sure that it will pass OK</sub>
+
+`posts.xml` format is:
+
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <posts>
+        <post>foo-bar-post</post>
+        <post>so-i-can-point-out-what-i-want</post>   
+    </posts>
+
+You can use [this page](./create.xml) to compose your posts with HTML preview. And you can write your posts in any language you _хотеть_.
+
+To filter out some posts, just remove their entries from `posts.xml`. To change posts order, just change `post` entries'  order in `posts.xml`.
+
+    ]]></content>
+</post>

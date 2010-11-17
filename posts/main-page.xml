@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<post>
+    <title>Main page</title>
+    <datetime>17 Nov 2010 13:24</datetime>
+    <tags>index,links</tags>
+    <content><![CDATA[
+
+By default, main page is `index.html`. You can rename it freely, just don't forget to change `link` property in `prefs.xml` correspondingly.
+
+The problem is that you need to specify its path in blog URL, you can't omit it by default.
+
+But if you are handy with `.htaccess` `DirectoryIndex` and/or `mod_rewrite`, you can solve this problem easily.
+
+    ]]></content>
+</post>

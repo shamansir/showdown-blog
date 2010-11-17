@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <options>
-    <title>shaman.sir blog</title>
-    <description>my little funny blog</description>
+    <title>Showdown blog</title>
+    <description>as easy as sandwich</description>
     <link>http://showdown-blog.googlecode.com/hg/index.html</link>    
+    
+    <posts-path></posts-path>
     
     <use-xml-cache>true</use-xml-cache>
 
@@ -15,5 +17,7 @@
     <permalink-prefix></permalink-prefix>
     <anchor-prefix></anchor-prefix>
     <loading-text>...</loading-text>
+    
+    <tags-levels></tags-levels>
     
 </options>

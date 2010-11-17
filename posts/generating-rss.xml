@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<post>
+    <title>Generating RSS</title>
+    <datetime>17 Nov 2010 13:23</datetime>
+    <tags>xml,rss</tags>
+    <content><![CDATA[
+
+This is just a script named `makerss.sh` in your package, you can run it to generate correct `rss.xml` file representing the current state of the blog. Contexts are not supported currently for RSS.
+
+    ]]></content>
+</post>

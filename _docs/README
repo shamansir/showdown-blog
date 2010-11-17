@@ -1,0 +1,103 @@
+Instructions
+
+#### How to add new post
+
+To add new post, just add any `<foo-bar-post>.xml` in `./posts` catalog and then add the corresponding entry into `./posts.xml`  file.
+
+`<foo-bar-post>.xml` format is (all elements are required):
+
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <post>
+        <title>Foo Bar Post</title>
+        <datetime>11 Oct 2010 19:54:35</datetime>
+        <tags>foo,bar</tags>
+        <content><![CDATA[
+
+            >>> Your Markdown content here <<<
+
+        ]]></content>
+    </post>
+
+<sub>* `datetime` field content is passed to JavaScript `new Date(...)` constructor, so you just need to be sure that it will pass OK</sub>
+
+`posts.xml` format is:
+
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <posts>
+        <post>foo-bar-post</post>
+        <post>so-i-can-point-out-what-i-want</post>   
+    </posts>
+
+You can use [this page](./create.xml) to compose your posts with HTML preview. And you can write your posts in any language you _хотеть_.
+
+To filter out some posts, just remove their entries from `posts.xml`. To change posts order, just change `post` entries'  order in `posts.xml`.
+
+#### URL format
+
+ * Link to the post at the blog page: `...html#foo-bar-post`
+ * Link to the post separate page: `...html?foo-bar-post`
+ * Link to the posts with specified tag: `...html?*foo`
+ * Link to the posts with specified tags: `...html?*foo,bar`
+ * Link to the post page in different context (see below): `...html?de:foo-bar-post`
+ * Link to the posts with tags in different context (see below): `...html?de:*foo,bar`
+
+#### Configuration
+
+Configuration is stored in `prefs.xml` file like this:
+
+    <options>
+        <title>shaman.sir blog</title>                                  (1)
+        <description>my little funny blog</description>                 (2)
+        <link>http://showdown-blog.googlecode.com/hg/index.html</link>  (3)    
+    
+        <posts-path></posts-path>                                       (4)
+    
+        <use-xml-cache>true</use-xml-cache>                             (5)
+
+        <show-post-lists>true</show-post-lists>                         (6)
+        <show-tags-cloud>true</show-tags-cloud>                         (7)
+
+        <date-format>E, dd NNN yyyy HH:mm</date-format>                 (8)
+        <posted-at>Posted at: %%</posted-at>                            (9)
+    
+        <permalink-prefix></permalink-prefix>                           (10)
+        <anchor-prefix></anchor-prefix>                                 (11)
+        <loading-text>...</loading-text>                                (12)
+    
+        <tags-levels></tags-levels>                                     (13)
+    
+    </options>
+
+Definitions:
+
+1. Blog title, as it is in the head of the page
+2. Blog description, a sub-line of the text under blog title
+3. The absolute URL to your blog, it will be inserted in the head link and used to reference posts in `rss.xml`
+4. `posts-path` is optional and may be used to manage different contexts (see below). It is the filesystem path to your `posts.xml` and `posts` folder. If not specified, current directory (`./`) is used.
+5. Use saved xml-files instances when rendering page. Always set it to `true`, even if you... Always.
+6. Show the posts list on the page or not
+7. Show the tags cloud on the page or not
+8. How to format the publish-date of the post in "Posted at ..." line. See `_docs/fdate_readme.txt` for formats specification.
+9. "Posted at ..." line, if you want to change it. `%%` is a date placeholder. Empty by default.
+10. If you set it to "Permalink: ", then you'll see "Permalink: &" text on the page in the corresponding place.
+11. If you set it to "Anchor: ", then you'll see "Anchor: #" text on the page in the corresponding place.
+12. Text to show while loading the post, instead of it.
+13. If it is not-empty, is must look like ` {1:'rare',2:'repeated',3:'recent',5:'frequent',7:'common',10:'popular',14:'massive'}`. These postfixes are appended in tags cloud CSS-classes when tag "weight" is more or equal (but not less) to the specified number.
+
+#### Different contexts
+
+You can use `...html?<context-id>:...`-styled links to point user to different versions of your blog (containing different posts). For example `...html?ru:` will point to the Russian version, and `...html?en:` will point to English version of your blog.
+
+To use this feature, just create `prefs-<context-id>.xml` files for every context (`prefs.xml` will be used when no context is specified (`TODO`: default context)). In our example, they will be `prefs-ru.xml` and `prefs-en.xml`. Then you can just change the `posts-path` option in these files to point in different catalogs with different `posts.xml` and `posts` folders in them (TODO: option to use default `posts.xml`). That's done.
+
+#### Main page
+
+By default, main page is `index.html`. You can rename it freely, just don't forget to change `link` property in `prefs.xml` correspondingly.
+
+The problem is that you need to specify its path in blog URL, you can't omit it by default.
+
+But if you are handy with `.htaccess` `DirectoryIndex` and/or `mod_rewrite`, you can solve this problem easily.
+ 
+#### Generating RSS ####
+
+This is just a script named `makerss.sh` in your package, you can run it to generate correct `rss.xml` file representing the current state of the blog. Contexts are not supported currently for RSS.
