@@ -33,7 +33,7 @@ To add new post, just add any `<foo-bar-post>.xml` in `./posts` catalog and then
         <post>so-i-can-point-out-what-i-want</post>   
     </posts>
 
-You can use [this page](./create.xml) to compose your posts with HTML preview. And you can write your posts in any language you _хотеть_.
+You can use [this page](./create.html) to compose your posts with HTML preview. And you can write your posts in any language you _хотеть_.
 
 To filter out some posts, just remove their entries from `posts.xml`. To change posts order, just change `post` entries'  order in `posts.xml`.
 
