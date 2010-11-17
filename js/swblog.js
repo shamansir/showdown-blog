@@ -43,7 +43,7 @@ _sw.notify = function(text) {
 }
 
 _sw.log = function(text) {
-    if (window.console && console) console.log(text);
+    //if (window.console && console) console.log(text);
 }
 
 _sw.postUrl = function(postId) {
@@ -197,7 +197,7 @@ _sw.renderPost = function(postId, target, xml, isSingle) {
 }
 
 _sw.loadOptions = function() {
-    _sw.getXml("./prefs.xml", 
+    _sw.getXml("./prefs" + (_sw.prefId ? ('-' + _sw.prefId) : '') + ".xml", 
                function(xml) { // success
 	                _sw.options = {};
 	                var root = $(xml).find('options');

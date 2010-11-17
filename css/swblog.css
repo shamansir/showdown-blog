@@ -6,8 +6,17 @@ body {
 }
 
 body.sw-mobile {
-    margin-left: 5px;
-    margin-right: 5px;    
+    margin-left: 7px;
+    margin-right: 7px;    
+}
+
+noscript {
+    display: block;
+    background-color: #fee;
+    color: #300;
+    font-size: 1.6em;
+    margin: 40px;
+    padding: 10px;
 }
 
 a {
@@ -28,6 +37,10 @@ a:hover {
 .header h1 {
     text-align: center;
     margin-bottom: 0;
+}
+
+.sw-mobile header h1 {
+    text-align: left;
 }
 
 .header h1 a {        
@@ -61,16 +74,20 @@ a:hover {
 }
 
 h2.sw-post-title {
-    margin-top: 60px;
+    margin-top: 80px;
 }
 
 h2.sw-post-title a {
     color: #333;
 }
 
+.sw-mobile h2.sw-post-title {
+    margin-top: 40px;
+}
+
 .sw-post-info {
     display: block;
-    color: #999;
+    color: #444;
     font-size: 0.9em;
     border-top: 1px solid #ddd;
     padding: 4px;
@@ -88,7 +105,7 @@ h2.sw-post-title a {
 
 .sw-post-info .sw-datetime {
     padding-left: 3px;
-    color: #003;
+    color: #333;
 }
 
 .sw-post-info .sw-post-links {
@@ -108,11 +125,10 @@ h2.sw-post-title a {
     padding-left: 0;
     margin-top: 2px;
     margin-bottom: 0;
-    font-size: 0.8em;
 }
 
 .sw-post-info ul.sw-post-tags li {
-    margin-right: 5px;   
+    margin-right: 5px;
 }
 
 .sw-post-info ul.sw-post-tags li a {
@@ -121,36 +137,70 @@ h2.sw-post-title a {
 
 #posts-list {
     position: absolute;
-    right: 72%;
-    top: 168px;
+    right: 73%;
+    top: 208px;
 }
 
 #posts-list ul {
-
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style: none;
+    text-align: right;
+    border-right: 1px solid #ddd;
+    padding: 6px 12px 10px 0;
+    font-size: 0.95em;
+    width: 150px;
 }
 
 #posts-list ul li {
+    padding-bottom: 10px;
+}
 
+#posts-list ul li a {
+    border-bottom: none;
 }
 
 #tagcloud {
     position: absolute;
-    left: 72%;
-    top: 168px;
+    left: 71%;
+    top: 208px;
 }
 
 #tagcloud ul {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style: none;
+    text-align: left;
+    padding: 5px 0 0 0;
+    font-size: 0.8em;
+    width: 175px;    
 }
 
 #tagcloud ul li {
+    float: left;
+    padding-left: 13px;
+}
+
+#tagcloud ul li a {
+    border-bottom: none;
 }
 
 .sw-mobile #posts-list {
+    position: inherit;
+    right: 0;
+}
 
+.sw-mobile #posts-list ul {
+    text-align: left;
+    padding: 0;
+    border: none;
+    list-style: none;
 }
 
 .sw-mobile #tagcloud {
-
+    position: inherit;
+    right: 0;
+    margin-top: 20px;
 }
 
 #copyright {
@@ -158,4 +208,32 @@ h2.sw-post-title a {
     margin-top: 60px;
     font-size: 0.8em;
     text-align: justify;
+}
+
+#tagcloud ul li a.sw-tagcloud-tag-level-rare {
+    font-size: 0.8em;
+}
+
+#tagcloud ul li a.sw-tagcloud-tag-level-repeated {
+    font-size: 0.85em;
+}
+
+#tagcloud ul li a.sw-tagcloud-tag-level-recent {
+    font-size: 1em;
+}
+
+#tagcloud ul li a.sw-tagcloud-tag-level-frequent {
+    font-size: 1.1em;
+}
+
+#tagcloud ul li a.sw-tagcloud-tag-level-common {
+    font-size: 1.3em;
+}
+
+#tagcloud ul li a.sw-tagcloud-tag-level-popular {
+    font-size: 1.5em;
+}
+
+#tagcloud ul li a.sw-tagcloud-tag-level-massive {
+   font-size: 1.7em;
 }
