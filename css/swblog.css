@@ -39,7 +39,7 @@ a:hover {
     margin-bottom: 0;
 }
 
-.sw-mobile header h1 {
+.sw-mobile .header h1 {
     text-align: left;
 }
 
@@ -55,6 +55,10 @@ a:hover {
     text-align: center;
     font-size: 1.1em;    
     font-style: italic;
+}
+
+.sw-mobile .header #description {
+    text-align: left;
 }
 
 #posts {
