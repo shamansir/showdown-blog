@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?transform-stylesheet href="swblog.xsl" ?>
+<?xml-stylesheet type="text/xsl" href="transform.xsl" ?>
+<options>
+    <title>Showdown blog</title>
+    <description>as easy as sandwich</description>
+    <link>http://showdown-blog.googlecode.com/hg/index.html</link>    
+    
+    <posts-path></posts-path>
+    
+    <show-post-lists>true</show-post-lists>
+    <show-tags-cloud>true</show-tags-cloud>
+
+    <date-format>E, dd NNN yyyy HH:mm</date-format>    
+    <posted-at>Posted at: %%</posted-at>
+    
+    <permalink-prefix></permalink-prefix>
+    <anchor-prefix></anchor-prefix>
+    <loading-text>...</loading-text>
+    
+</options>
