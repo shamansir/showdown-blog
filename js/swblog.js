@@ -24,17 +24,23 @@ $(document).ready(function(){
     var singleMode = (code.length > 0) && code.match(/^[\w\d-]+$/);    
 
     _sw.checkMobile();                 
-    _sw.loadOptions();
-    _sw.showPostsList(tagsMode || singleMode);
-    _sw.showTagsCloud();
-                 
-    if (singleMode) {            
-        _sw.loadPost(code, true);
-    } else if (tagsMode) {
-        _sw.loadByTags(code);  
-    } else {        
-        _sw.loadAllPosts();
-    }
+    _sw.loadOptions(function(options) {
+    
+        if (options) {
+            _sw.applyOptions();
+            _sw.showPostsList(tagsMode || singleMode);
+            _sw.showTagsCloud();
+                         
+            if (singleMode) {            
+                _sw.loadPost(code, true);
+            } else if (tagsMode) {
+                _sw.loadByTags(code);  
+            } else {        
+                _sw.loadAllPosts();
+            }
+        }    
+    
+    });
     
 });
 
@@ -43,7 +49,7 @@ _sw.notify = function(text) {
 }
 
 _sw.log = function(text) {
-    //if (window.console && console) console.log(text);
+    if (window.console && console) console.log(text);
 }
 
 _sw.postUrl = function(postId) {
@@ -197,7 +203,7 @@ _sw.renderPost = function(postId, target, xml, isSingle) {
     
 }
 
-_sw.loadOptions = function() {
+_sw.loadOptions = function(whenLoaded) {
     _sw.getXml("./prefs" + (_sw.prefId ? ('-' + _sw.prefId) : '') + ".xml", 
                function(xml) { // success
 	                _sw.options = {};
@@ -218,7 +224,7 @@ _sw.loadOptions = function() {
                     if ($(xml).find('posts-path').text().length > 0) _sw.postsPath = $(xml).find('posts-path').text();
 	           },
 	           function() { // complete
-        	        if (_sw.options) _sw.applyOptions();
+        	        if (whenLoaded) whenLoaded(_sw.options);
 	           });
 }
 
