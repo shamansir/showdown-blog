@@ -1,5 +1,6 @@
 ^_tmp
 ^rss.xml$
 ~$
-^swblog.zip$
+^swblog-js.zip$
+^swblog-xsl.zip$
 .gz$

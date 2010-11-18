@@ -9,5 +9,7 @@ You can use `...html?<context-id>:...`-styled links to point user to different v
 
 To use this feature, just create `prefs-<context-id>.xml` files for every context (`prefs.xml` will be used when no context is specified (`TODO`: default context)). In our example, they will be `prefs-ru.xml` and `prefs-en.xml`. Then you can just change the `posts-path` option in these files to point in different catalogs with different `posts.xml` and `posts` folders in them (TODO: option to use default `posts.xml`). That's done.
 
+Since default contexts are not currently supported, you can just create/leave `prefs.xml` for default version and create a single post with the links to other contexts there
+
     ]]></content>
 </post>
