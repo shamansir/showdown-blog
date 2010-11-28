@@ -1,6 +1,6 @@
-^_tmp
-^rss.xml$
+^_sb/_tmp
+^_sb/rss.xml$
 ~$
-^swblog-js.zip$
-^swblog-xsl.zip$
+^_sb/swblog-js.zip$
+^_sb/swblog-xsl.zip$
 .gz$
