@@ -9,6 +9,7 @@ To add new post, just add any `<foo-bar-post>.xml` in `./posts` catalog and then
 
 `<foo-bar-post>.xml` format is (all elements are required):
 
+    #!xml
     <?xml version="1.0" encoding="UTF-8" ?>
     <post>
         <title>Foo Bar Post</title>
@@ -21,19 +22,20 @@ To add new post, just add any `<foo-bar-post>.xml` in `./posts` catalog and then
         </content>
     </post>
 
-<sub>* Wrap content with `CDATA` (see example posts) to ensure that your markup will not break xml</sub>
+> Wrap content with `CDATA` (see example posts) to ensure that your markup will not break xml
 
-<sub>* `datetime` field content is passed to JavaScript `new Date(...)` constructor, so you just need to be sure that it will pass OK</sub>
+> `datetime` field content is passed to JavaScript `new Date(...)` constructor, so you just need to be sure that it will pass OK
 
 `posts.xml` format is:
 
+    #!xml
     <?xml version="1.0" encoding="UTF-8" ?>
     <posts>
         <post>foo-bar-post</post>
         <post>so-i-can-point-out-what-i-want</post>   
     </posts>
 
-You can use [this page](./create.html) to compose your posts with HTML preview. And you can write your posts in any language you _хотеть_.
+You can use [this page](./_sb/create.html) to compose your posts with HTML preview. And you can write your posts in any language you _хотеть_.
 
 To filter out some posts, just remove their entries from `posts.xml`. To change posts order, just change `post` entries'  order in `posts.xml`.
 

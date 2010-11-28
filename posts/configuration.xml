@@ -7,6 +7,7 @@
 
 Configuration is stored in `prefs.xml` file like this:
 
+    #!xml
     <options>
         <title>shaman.sir blog</title>                                  (1)
         <description>my little funny blog</description>                 (2)
@@ -18,15 +19,16 @@ Configuration is stored in `prefs.xml` file like this:
 
         <show-post-lists>true</show-post-lists>                         (6)
         <show-tags-cloud>true</show-tags-cloud>                         (7)
+        <highlight-code>true</highlight-code>                           (8)
 
-        <date-format>E, dd NNN yyyy HH:mm</date-format>                 (8)
-        <posted-at>Posted at: %%</posted-at>                            (9)
+        <date-format>E, dd NNN yyyy HH:mm</date-format>                 (9)
+        <posted-at>Posted at: %%</posted-at>                            (10)
     
-        <permalink-prefix></permalink-prefix>                           (10)
-        <anchor-prefix></anchor-prefix>                                 (11)
-        <loading-text>...</loading-text>                                (12)
+        <permalink-prefix></permalink-prefix>                           (11)
+        <anchor-prefix></anchor-prefix>                                 (12)
+        <loading-text>...</loading-text>                                (13)
     
-        <tags-levels></tags-levels>                                     (13)
+        <tags-levels></tags-levels>                                     (14)
     
     </options>
 
@@ -39,12 +41,13 @@ Definitions:
 5. Use saved xml-files instances when rendering page. Always set it to `true`, even if you... Always.
 6. Show the posts list on the page or not
 7. Show the tags cloud on the page or not
-8. How to format the publish-date of the post in "Posted at ..." line. See `_docs/fdate_readme.txt` for formats specification.
-9. "Posted at ..." line, if you want to change it. `%%` is a date placeholder. Empty by default.
-10. If you set it to "Permalink: ", then you'll see "Permalink: &" text on the page in the corresponding place.
-11. If you set it to "Anchor: ", then you'll see "Anchor: #" text on the page in the corresponding place.
-12. Text to show while loading the post, instead of it.
-13. If it is not-empty, is must look like ` {1:'rare',2:'repeated',3:'recent',5:'frequent',7:'common',10:'popular',14:'massive'}`. These postfixes are appended in tags cloud CSS-classes when tag "weight" is more or equal (but not less) to the specified number.
+8. Highlight source code on the page or not
+9. How to format the publish-date of the post in "Posted at ..." line. See `_docs/fdate_readme.txt` for formats specification.
+10. "Posted at ..." line, if you want to change it. `%%` is a date placeholder. Empty by default.
+11. If you set it to "Permalink: ", then you'll see "Permalink: &" text on the page in the corresponding place.
+12. If you set it to "Anchor: ", then you'll see "Anchor: #" text on the page in the corresponding place.
+13. Text to show while loading the post, instead of it.
+14. If it is not-empty, is must look like ` {1:'rare',2:'repeated',3:'recent',5:'frequent',7:'common',10:'popular',14:'massive'}`. These postfixes are appended in tags cloud CSS-classes when tag "weight" is more or equal (but not less) to the specified number.
 
     ]]></content>
 </post>

@@ -10,6 +10,7 @@
 
     <show-post-lists>true</show-post-lists>
     <show-tags-cloud>true</show-tags-cloud>
+    <highlight-code>true</highlight-code>
 
     <date-format>E, dd NNN yyyy HH:mm</date-format>    
     <posted-at>Posted at: %%</posted-at>

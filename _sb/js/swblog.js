@@ -6,6 +6,7 @@ _sw.tagsLevels = {1:'rare',2:'repeated',3:'recent',5:'frequent',7:'common',10:'p
 _sw.rootLink = "#";
 _sw.postsPath = "./";
 _sw.prefId = null;
+_sw.sh_code_re = /^#!(\w+)/g;
 
 $(document).ready(function(){
 
@@ -38,6 +39,7 @@ $(document).ready(function(){
             } else {        
                 _sw.loadAllPosts();
             }
+            
         }    
     
     });
@@ -63,7 +65,6 @@ _sw.postAnchor = function(postId) {
 _sw.tagUrl = function(tag) {
     return '?' + (_sw.prefId ? (_sw.prefId + ':') : '') + '*' + tag;
 }
-
 
 _sw.gotXml = function(cacheItem, url) {
     var waiting = cacheItem.queue;
@@ -199,12 +200,12 @@ _sw.renderPost = function(postId, target, xml, isSingle) {
     }
     infoBlock.append(tagsBlock.addClass('sw-post-tags'));
         
-    target.append(infoBlock);        
+    target.append(infoBlock);
     
 }
 
 _sw.loadOptions = function(whenLoaded) {
-    _sw.getXml("./prefs" + (_sw.prefId ? ('-' + _sw.prefId) : '') + ".xml", 
+    _sw.getXml("prefs" + (_sw.prefId ? ('-' + _sw.prefId) : '') + ".xml", 
                function(xml) { // success
 	                _sw.options = {};
 	                var root = $(xml).find('options');
@@ -218,6 +219,7 @@ _sw.loadOptions = function(whenLoaded) {
                     _sw.options.showPostsList = root.find('show-post-lists').text().match(/^true$/);
                     _sw.options.showTagsCloud = root.find('show-tags-cloud').text().match(/^true$/);
                     _sw.options.useXmlCache = root.find('use-xml-cache').text().match(/^true$/);
+                    _sw.options.highlightCode = root.find('highlight-code').text().match(/^true$/);
                     var tLevels = $(xml).find('tags-levels').text();
                     if ((tLevels.length > 0) && tLevels.match(/^[\w\d\s\{\}\:\-\']+$/)) _sw.tagsLevels = eval(tLevels);
                     if ($(xml).find('link').text().length > 0) _sw.rootLink = $(xml).find('link').text();
@@ -265,6 +267,7 @@ _sw.loadPost = function(postId, isSingle) {
                function(xml) { // success
                     target.empty();
                    _sw.renderPost(postId, target, $(xml), isSingle);
+                   _sw.highlightCode();
                },
                null, // complete
                function() { // error
@@ -423,5 +426,29 @@ _sw.formatDatetime = function(datetime, descr, dateFormat) {
     if (datetime.length <= 0) return '-';
     var formattedDate = '<span class=\'sw-datetime\'>' + formatDate(new Date(datetime), dateFormat) + '</span>';
     return descr.replace(/%%/g, formattedDate);
+}
+
+_sw.highlightCode = function() {
+    if (!_sw.options.highlightCode) return;
+
+    var makeHilite = false;
+    var cre = _sw.sh_code_re;
+
+    $("pre code").each(function(idx, elm) {
+        var node = $(elm);
+        if (node.attr('_sh') != 'done') {
+            var reRes;
+            while ((reRes = cre.exec(node.text())) != null) {
+                var langCode = reRes[1];
+                var cutPos = cre.lastIndex + 1;
+                node.text(node.text().substring(cutPos));
+                node.parent().addClass('sh_' + langCode);
+                makeHilite = true;
+                node.attr('_sh', 'done');
+            }
+        }
+    });
+            
+    if (makeHilite) sh_highlightDocument('_sb/js/sh_lang/', '.min.js');
 }
 
