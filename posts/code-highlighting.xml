@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<post>
+    <title>Source code highligting</title>
+    <datetime>28 Nov 2010 23:27</datetime>
+    <tags>source code,highlighting,programming</tags>
+    <content><![CDATA[
+
+If you write a programming blog, you might want to highlight your code. To do this, just set `highlight-code` in `prefs.xml` to `true`.
+
+Then just add `#!<lang-id>` code as first line of your code block. Examples are: `#!xml`, `#!java`, `#!javascript`. And look, your code highlighting works!
+
+    #!java
+    public class MySuperCode {
+   
+        private final String initialVar;
+       
+        public MySuperCode(String initialVar) {
+            this.initialVar = initialVar;
+        }
+       
+    }
+
+[SHJS](http://shjs.sourceforge.net/) engine is used to make it work. If you need any programming language support that is not in the showdown-blog archive, just download its `.js`-file and put it to `js/sh_lang/<lang-id>.min.js`. Also, to change code highlighting style, just download its `.css` file and change the corresponding line in `index.html` file to the new style.
+
+    ]]></content>
+</post>
