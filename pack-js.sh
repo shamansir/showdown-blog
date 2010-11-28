@@ -10,6 +10,8 @@ zip -r \
 ./js/showdown.min.js \
 ./js/showdown-gui.js \
 ./js/swblog.min.js \
+./js/sh_main.min.js \
+./js/sh_*.min.js \
 ./css \
 ./_docs \
 ./_licenses \
