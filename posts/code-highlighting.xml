@@ -7,7 +7,9 @@
 
 If you write a programming blog, you might want to highlight your code. To do this, just set `highlight-code` in `prefs.xml` to `true`.
 
-Then just add `#!<lang-id>` code as first line of your code block. Examples are: `#!xml`, `#!java`, `#!javascript`. And look, your code highlighting works!
+> Be aware, currently highlighting is turned on only for single posts (not for main page). When the main page will support posts summary, I will may be turn it back.
+
+So just add `#!<lang-id>` code as first line of your code block. Examples are: `#!xml`, `#!java`, `#!javascript`. And look, your code highlighting works!
 
     #!java
     public class MySuperCode {

@@ -32,11 +32,13 @@ $(document).ready(function(){
             _sw.showPostsList(tagsMode || singleMode);
             _sw.showTagsCloud();
                          
-            if (singleMode) {            
+            if (singleMode) {       
                 _sw.loadPost(code, true);
             } else if (tagsMode) {
+                _sw.options.highlightCode = false;
                 _sw.loadByTags(code);  
             } else {        
+                _sw.options.highlightCode = false;            
                 _sw.loadAllPosts();
             }
             
@@ -51,7 +53,7 @@ _sw.notify = function(text) {
 }
 
 _sw.log = function(text) {
-    if (window.console && console) console.log(text);
+    //if (window.console && console) console.log(text);
 }
 
 _sw.postUrl = function(postId) {
@@ -444,8 +446,8 @@ _sw.highlightCode = function() {
                 node.text(node.text().substring(cutPos));
                 node.parent().addClass('sh_' + langCode);
                 makeHilite = true;
-                node.attr('_sh', 'done');
             }
+            node.attr('_sh', 'done');
         }
     });
             

@@ -34,12 +34,12 @@ a:hover {
 }
 
 blockquote {
-    border-left: 1px solid #ccc;
+    border-left: 2px solid #ccc;
     margin: 0;
     background-color: #eee;
-    padding: 5px 10px 5px 20px;
-    max-width: 460px;
-    font-size: 0.9em;
+    padding: 7px 10px 11px 50px;
+    font-size: 0.95em;
+    color: #333;
 }
 
 blockquote p {
