@@ -11,24 +11,38 @@
 	<meta name="image:Background" content="http://assets.tumblr.com/images/x.gif"/>
 	
 	<!-- DEFAULT COLORS -->
-	<meta name="color:Background" content="#ffffff"/>
-	<meta name="color:Text" content="#000000"/>
-	<meta name="color:Links" content="#660000"/>
+	
+	<meta name="color:Background" content="#fff"/>
+	<meta name="color:Text" content="#000"/>
+	<meta name="color:Links" content="#600"/>
+	<meta name="color:LinksHover" content="#eee"/>
+
+    <meta name="font:Body" content="Georgia">	
 	
 	<meta name="if:Show notes" content="1">
 	<meta name="if:Highlight code" content="0">	
 	<meta name="text:Disqus Shortname" content="" />
+	<meta name="text:Twitter Username" content="" />	
+	<meta name="text:Supported langs" content="['html','css','xml','javascript','latex','java','python','sh']" />	
+	
+	<meta name="color:Grays" content="#ccc"/>
+	<meta name="color:DarkGrays" content="#bbb"/>
+	<meta name="color:DarkReds" content="#300"/>
 	
 	<!-- PLEASE ENABLE HIGHLIGHTING CODE ONLY IF YOU USE IT -->
 
    {block:IfHighlightCode}	
    <script type="text/javascript" src="http://shjs.sourceforge.net/sh_main.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_css.min.js"></script>
+   <!--
    <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_html.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_java.min.js"></script>
+   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_css.min.js"></script>
+   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_xml.min.js"></script>
    <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_javascript.min.js"></script>
+   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_java.min.js"></script>
+   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_python.min.js"></script>
+   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_sh.min.js"></script>
    <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_latex.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_xml.min.js"></script>   
+   -->
    <link type="text/css" rel="stylesheet" href="http://shjs.sourceforge.net/css/sh_nedit.min.css" />   
    {/block:IfHighlightCode}
 		
@@ -41,7 +55,7 @@ html {
 
 body {
     background-color: {color:Background};
-    font-family: Georgia,'Times New Roman',Times,serif;
+    font-family: {font:Body},'Times New Roman',Times,serif;
     font-size: 16px;
     color: {color:Text};    
     margin-left: 30%;
@@ -56,7 +70,7 @@ body.mobile {
 noscript {
     display: block;
     background-color: #fee;
-    color: #300;
+    color: {color:DarkReds};
     font-size: 1.6em;
     margin: 40px;
     padding: 10px;
@@ -65,17 +79,17 @@ noscript {
 a {
     color: {color:Links};
     text-decoration: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid {color:Grays}
 }
 
 a:hover {
-    background-color: #eee;
+    background-color: {color:LinksHover};
 }
 
 blockquote {
-    border-left: 20px solid #ccc;
+    border-left: 20px solid {color:Grays};
     margin: 0;
-    background-color: #eee;
+    background-color: {color:LinksHover};
     padding: 7px 7px 11px 30px;
     font-size: 0.95em;
     color: #333;
@@ -108,7 +122,7 @@ code {
     margin-bottom: 0;
 }
 
-.sw-mobile .header h1 {
+.mobile .header h1 {
     text-align: left;
 }
 
@@ -127,7 +141,7 @@ code {
 }
 
 .mobile .header #description {
-
+    text-align: left;
 }
 
 #posts {
@@ -154,8 +168,8 @@ code {
     float: right;
     position: relative;
     border: 1px solid #eee;
-    color: #300;
-    background: #eee;
+    color: {color:DarkReds};
+    background: {color:LinksHover};
 }
 
 .post-icon:hover {
@@ -171,14 +185,14 @@ code {
 
 .post-icon a:hover {
     background: #ddd;
-    color: #300;
+    color: {color:DarkReds};
 }
 
 .post-icon .micon {
     float: right;
     top: 2px;
     padding: 0 2px;
-    color: #300;
+    color: {color:DarkReds};
 }
 
 h2.post-title {
@@ -213,7 +227,7 @@ h2.post-title a {
 
 .post-info .datetime,
 .post-info .post-time a {
-    color: #300;
+    color: {color:DarkReds};
 }
 
 .post-info .post-links {
@@ -276,16 +290,84 @@ ul#nav li a {
     border-bottom: none;
 }
 
+#twitter {
+    border-left: 1px solid #DDDDDD;
+    font-size: 0.95em;
+    list-style: none outside none;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0 12px 10px 23px;
+    text-align: left;
+    width: 150px;
+    position: absolute;
+    left: 74%;
+    top: 208px;    
+}
+
+#twitter h3 a,
+#twitter h4 a {
+    border: none;
+}
+
+#twitter h3,
+#twitter h4 {
+    font-size: 1em;
+    font-weight: normal;    
+}
+
+#twitter h3 {
+    margin-bottom: 0;
+}
+
+#twitter h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 3px;    
+    font-size: 0.8em;
+    border-bottom: 1px solid {color:Grays};
+}
+
+#tweets a {
+    border: none;
+    display: block;
+    font-size: 0.75em;
+    margin-bottom: 10px;
+    margin-top: 2px;
+}
+
+#tweets a div {
+    color: #666;
+    display: block;
+    padding-left: 2px;
+}
+
+#tweets a div:hover {
+    padding-left: 1px;
+    border-left: 1px solid {color:Grays};
+    background: {color:LinksHover}
+}
+
+.mobile #twitter {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;    
+}
+
 #daybox {
     position: relative;
     top: -50px;
     padding: 0;    
     margin: 0 25%;
-    background: #eee;    
-    color: #300;
+    background: {color:LinksHover};    
+    color: {color:DarkReds};
     font-size: 0.9em;
     text-transform: lowercase;    
     text-align: center;
+}
+
+.mobile #daybox {
+    text-align: left;
 }
 
 #daybox #day {
@@ -299,18 +381,18 @@ ul#nav li a {
 
 #pagenav a {
     border-bottom: none;    
-    color: #300;
+    color: {color:DarkReds};
 }
 
 #pagenav a:hover {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid {color:Grays};
 }
 
 #pagenav #pages,
 #pagenav #p-permalink {
     display: block;
     text-align: center;
-    color: #300;
+    color: {color:DarkReds};
     font-size: 0.9em;
     padding-left: 12px;
 }
@@ -321,7 +403,7 @@ ul#nav li a {
 #pagenav #next-post {
     position: absolute;
     font-size: 0.9em;
-    color: #300;
+    color:{color:DarkReds};
     top: 86px;    
 }
 
@@ -339,6 +421,12 @@ ul#nav li a {
     right: 23%;
 }
 
+.mobile #pagenav #pages,
+.mobile #pagenav #p-permalink {
+    padding-top: 20px;
+    text-align: left;
+}
+
 .mobile #pagenav #prev-page,
 .mobile #pagenav #prev-post,
 .mobile #pagenav #next-page,
@@ -347,7 +435,7 @@ ul#nav li a {
     right: 0;
     position: static;    
     display: block;
-    text-align: center;
+    text-align: left;
     margin: 15px 0;
 }
 
@@ -435,7 +523,7 @@ ul#nav li a {
 #posts .post.quote .post-content {
     font-size: 1.2em;
     margin-top: 15px;
-    border-left: 20px solid #aaa;
+    border-left: 20px solid {color:DarkGrays};
 }
 
 #posts .post.quote .post-source {
@@ -445,7 +533,7 @@ ul#nav li a {
 
 
 #posts .post.photo .post-content a {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid {color:Grays};
     border-bottom: none;
 }
 
@@ -466,7 +554,7 @@ ul#nav li a {
 }
 
 #posts .post.chat .post-content ul {
-    border-left: 20px solid #aaa;
+    border-left: 20px solid {color:DarkGrays};
     padding-left: 10px;
 }
 
@@ -520,7 +608,6 @@ ul#nav li a {
 #posts .post.text .post-content p img {
     border: 1px solid #000;
 }
-
 
     {block:IfDisqusShortname}
     span.meta .note {
@@ -937,6 +1024,36 @@ ul#nav li a {
         
       {/block:Permalink}
       
+      {block:IfTwitterUsername}
+          <div id="twitter" style="display:none;">
+              <h3><a href="http://twitter.com/{text:Twitter Username}">Latest Tweets</a></h3>
+              <h4>by <a href="http://twitter.com/{text:Twitter Username}">{text:Twitter Username}</a></h4>
+            
+              <div id="tweets"></div>        
+          </div>
+        
+          <script type="text/javascript">            
+              function recent_tweets(data) {
+                  for (i=0; i<data.length; i++) {
+                      document.getElementById("tweets").innerHTML = 
+                          document.getElementById("tweets").innerHTML + 
+                          '<a href="http://twitter.com/{text:Twitter Username}/status/' + 
+                          data[i].id + '"><div class="content">' + data[i].text + 
+                          '</div></a>';
+                  }
+                  document.getElementById("twitter").style.display = 'block';
+              }
+          </script>
+    {/block:IfTwitterUsername}
+          
+    <!-- Put this at the bottom of the page -->
+    {block:IfTwitterUsername}
+        <script type="text/javascript">             
+        var twitter_username = '{text:Twitter Username}';
+        </script>
+        <script type="text/javascript" src="/tweets.js"></script>
+    {/block:IfTwitterUsername}
+      
       <!-- COPYRIGHT -->
 
       <div id="copyright">        
@@ -962,8 +1079,19 @@ ul#nav li a {
 {block:IfHighlightCode}
 <script type="text/javascript">
 //<![CDATA[
-(function() {
+var runHighlighting = function() {
     if (!sh_highlightDocument) return;
+    
+    {block:IfSupportedLangs}
+    var incLangs = {text:Supported langs};
+    var head = document.getElementsByTagName('head')[0];    
+    for (var iCodeIdx = 0; iCodeIdx < incLangs.length; iCodeIdx++) {
+       var script = document.createElement('script');
+       script.type = 'text/javascript';
+       script.src = 'http://shjs.sourceforge.net/lang/sh_' + incLangs[iCodeIdx] + '.min.js';   
+       head.appendChild(script);
+   }
+   {/block:IfSupportedLangs}
     
     var sh_cre = /^#!(\w+)/g;
     var preElms = document.getElementsByTagName('pre');
@@ -975,6 +1103,17 @@ ul#nav li a {
             var re_res;
             while ((re_res = sh_cre.exec(codeElm.textContent)) != null) {
                 var langCode = re_res[1];
+                
+                {block:IfSupportedLangs}
+                var supLangs = {text:Supported langs};
+                var found = false;
+                for (var lCodeIdx = 0; lCodeIdx < supLangs.length; lCodeIdx++) {
+                    found = (supLangs[lCodeIdx] == langCode);
+                    if (found) break;
+                }
+                if (!found) break;
+                {/block:IfSupportedLangs}
+                
                 var cutPos = sh_cre.lastIndex + 1;
                 codeElm.textContent = codeElm.textContent.substring(cutPos);
                 preElm.className = 'sh_' + langCode;
@@ -982,8 +1121,13 @@ ul#nav li a {
         }
     }
     
-    sh_highlightDocument();
-})();
+    setTimeout(sh_highlightDocument, 1500);
+};
+var prevWinOnload = window.onload;
+window.onload = function() {
+    if (typeof prevWinOnload == 'function') prevWinOnload();
+    setTimeout(runHighlighting, 1500);
+};
 //]]>
 </script>
 {/block:IfHighlightCode}
