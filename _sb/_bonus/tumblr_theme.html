@@ -23,27 +23,21 @@
 	<meta name="if:Highlight code" content="0">	
 	<meta name="text:Disqus Shortname" content="" />
 	<meta name="text:Twitter Username" content="" />	
-	<meta name="text:Supported langs" content="['html','css','xml','javascript','latex','java','python','sh']" />	
+	<meta name="text:Supported langs" content="['html','css','xml','javascript','latex','java','python','sh']" />
+	
+	<!-- 'java', 'css', 'latex', 'javascript', 'html', 'xml', 'sql', 'sh', 'ruby', 'php', 'cpp', 'csharp' -->
 	
 	<meta name="color:Grays" content="#ccc"/>
 	<meta name="color:DarkGrays" content="#bbb"/>
+	<meta name="color:Tweets" content="#333"/>	
 	<meta name="color:DarkReds" content="#300"/>
 	
 	<!-- PLEASE ENABLE HIGHLIGHTING CODE ONLY IF YOU USE IT -->
 
    {block:IfHighlightCode}	
-   <script type="text/javascript" src="http://shjs.sourceforge.net/sh_main.min.js"></script>
-   <!--
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_html.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_css.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_xml.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_javascript.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_java.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_python.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_sh.min.js"></script>
-   <script type="text/javascript" src="http://shjs.sourceforge.net/lang/sh_latex.min.js"></script>
-   -->
-   <link type="text/css" rel="stylesheet" href="http://shjs.sourceforge.net/css/sh_nedit.min.css" />   
+   <script type="text/javascript" src="http://static.tumblr.com/7obxgxu/ZAFlcsujf/sh_main.min.js"></script>
+   
+   <link type="text/css" rel="stylesheet" href="http://static.tumblr.com/7obxgxu/WyVlcsukh/sh_nedit.min.css" />   
    {/block:IfHighlightCode}
 		
 <style type="text/css">
@@ -336,7 +330,7 @@ ul#nav li a {
 }
 
 #tweets a div {
-    color: #666;
+    color: {color:Tweets};
     display: block;
     padding-left: 2px;
 }
@@ -1083,16 +1077,32 @@ var runHighlighting = function() {
     if (!sh_highlightDocument) return;
     
     {block:IfSupportedLangs}
+    var langsMap = {
+       'java': 'ogilcsung',
+       'css': 'iialcsule',
+       'latex': 'OVTlcsulo',
+       'javascript': '4Ljlcsum0',
+       'html': 'PSglcsuma',
+       'xml': 'qTclcsumm',
+       'sql': 'Qg5lcsuqs',
+       'sh': 'Ssnlcsur7',
+       'ruby': 'Z5Elcsurk',
+       'php': 'BSPlcsurv',
+       'cpp': 'tNGlcsus5',
+       'csharp': '7Dtlcsush'
+    }
+    
     var incLangs = {text:Supported langs};
     var head = document.getElementsByTagName('head')[0];    
     for (var iCodeIdx = 0; iCodeIdx < incLangs.length; iCodeIdx++) {
+       var lc = incLangs[iCodeIdx];
        var script = document.createElement('script');
        script.type = 'text/javascript';
-       script.src = 'http://shjs.sourceforge.net/lang/sh_' + incLangs[iCodeIdx] + '.min.js';   
+       script.src = 'http://static.tumblr.com/7obxgxu/' + langsMap[lc] + '/sh_' + lc + '.min.js';   
        head.appendChild(script);
    }
    {/block:IfSupportedLangs}
-    
+   
     var sh_cre = /^#!(\w+)/g;
     var preElms = document.getElementsByTagName('pre');
     for (var preIdx = 0; preIdx < preElms.length; preIdx++) {
