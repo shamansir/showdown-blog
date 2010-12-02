@@ -16,6 +16,7 @@ zip -r \
 ./_sb/css \
 ./_sb/_docs \
 ./_sb/_licenses \
+./_sb/bonus \
 ./_sb/create.html \
 ./_sb/makerss.sh \
 ./_sb/rss.xsl
