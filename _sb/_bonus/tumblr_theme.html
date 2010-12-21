@@ -17,10 +17,11 @@
 	<meta name="color:Links" content="#600"/>
 	<meta name="color:LinksHover" content="#eee"/>
 
-    <meta name="font:Body" content="Georgia">	
+    <meta name="font:Body" content="Georgia" />
 	
-	<meta name="if:Show notes" content="1">
-	<meta name="if:Highlight code" content="0">	
+	<meta name="if:Show notes" content="1" />
+	<meta name="if:Highlight code" content="0" />
+	<meta name="if:Show calendar" content="0" />
 	<meta name="text:Disqus Shortname" content="" />
 	<meta name="text:Twitter Username" content="" />	
 	<meta name="text:Supported langs" content="['html','css','xml','javascript','latex','java','python','sh']" />
@@ -609,6 +610,149 @@ ul#nav li a {
     }
     {/block:IfDisqusShortname}
 
+{block:IfShowCalendar}
+
+ .mobile ul#calendar {
+     position: relative;
+     top: 0;
+     left: 0;
+ }
+  
+ ul#calendar {
+     font-family: Trebuchet MS, Arial, sans-serif; 
+     font-size: 13px;
+     position: fixed;
+     top: 25%;
+     left: 0;
+     padding: 8px 8px 0 0;
+     list-style-type: none;
+     width: 107px;
+     background-color: #eee;
+     border: 1px solid #999;
+       
+     box-shadow: 2px 2px 5px #333;
+     -o-box-shadow: 2px 2px 5px #333;
+     -webkit-box-shadow: 2px 2px 5px #333;
+     -moz-box-shadow: 2px 2px 5px #333;
+        
+ }
+     
+ ul#calendar {
+     margin-left: -43px;
+ }
+     
+ ul#calendar:hover {
+     margin-left: 0;
+ }           
+     
+ ul#calendar li {
+ }
+     
+ ul#calendar li.calendar-year {
+    /* border-top: 2px solid #999; */
+    font-size: 1.2em;
+    font-weight: bold;
+    float: right;
+    color: #666;
+    border-bottom: 6px solid #ccc;
+ } 
+ 
+ ul#calendar li.calendar-month {
+     border-top: 4px solid #ccc;
+     color: #666;
+     font-size: 1.1em;
+     font-weight: bold;               
+     text-align: right;
+     margin-right: 37px;
+     margin-top: 7px;
+     padding-right: 4px;
+     padding-left: 44px;
+ }
+ 
+ ul#calendar li.calendar-day {
+     font-size: 0.9em;
+     margin-left: 5px;
+     float: left;
+ }           
+ 
+ ul#calendar li.calendar-post {
+
+ }           
+ 
+ ul#calendar li.calendar-day,
+ ul#calendar li.calendar-post {
+     position: relative;
+     top: -16px;
+ }
+ 
+ ul#calendar li.calendar-post a {
+     text-indent:-999em;
+     width: 0px;
+     height: 20px;
+     display: block;
+     border-left: 21px solid #ddd;
+     margin-left: 21px;
+     margin-bottom: 1px;
+ }
+ 
+ ul#calendar li.calendar-year:hover,
+ ul#calendar li.calendar-month:hover,
+ ul#calendar li.calendar-post a:hover,
+ ul#calendar.calendar-right li.calendar-post a:hover {
+    cursor: pointer;
+    border-color: #999;
+    color: #333;
+ }
+ 
+ ul#calendar li.calendar-day:hover {
+    background-color: #eee;
+ }
+ 
+ ul#calendar.calendar-right {
+    left: auto;
+    right: 0;
+    padding: 8px 0 0 8px;
+ }
+ 
+ ul#calendar.calendar-right {
+    margin-left: auto;
+    margin-right: -43px;
+ }
+
+ ul#calendar.calendar-right:hover {
+    margin-left: auto;
+    margin-right: 0;
+ }
+ 
+ ul#calendar.calendar-right li.calendar-year {
+    float: left;
+ }
+ 
+ ul#calendar.calendar-right li.calendar-month {
+     text-align: left;
+     margin-right: auto;
+     margin-left: 37px;
+     margin-top: 7px;
+     padding-right: 44px;
+     padding-left: 3px;
+ }
+ 
+ ul#calendar.calendar-right li.calendar-day {
+     font-size: 0.9em;
+     margin-left: auto;
+     margin-right: 5px;
+     float: right;
+ }           
+               
+ ul#calendar.calendar-right li.calendar-post a {
+     border-left: 21px solid #ddd;
+     margin-left: auto;
+     margin-right: 21px;
+     margin-bottom: 1px;
+ }           		
+
+{/block:IfShowCalendar}
+
 {CustomCSS}
 
 </style>
@@ -987,6 +1131,10 @@ ul#nav li a {
 			</div>
 		</div>
 		{/block:Text}
+
+                {block:Date}
+                   <h6 class="calendar-item" cal-date="{Year}/{MonthNumberWithZero}/{DayOfMonthWithZero}" cal-postid="{PostID}" cal-permalink="{Permalink}" cal-title="{Title}" style="display: none;"></h6>
+                {/block:Date}
       
       {/block:Posts}
       
@@ -1158,6 +1306,61 @@ window.onload = function() {
 //]]>
 </script>
 {/block:IfDisqusShortname}
+
+{block:IfShowCalendar}
+<script type="text/javascript">
+//<![CDATA[
+(function() {
+    var dates = document.getElementsByTagName('h6');
+    var calList = document.createElement('ul');
+    calList.setAttribute('id','calendar');
+    var prevYear = "";
+    var prevMonth = "";
+    var prevDay = "";
+    for (var i = 0; i < dates.length; i++) {
+        var dateSrc = dates[i];
+
+        var postDate = dateSrc.getAttribute('cal-date').split('/');
+
+        if (postDate[0] != prevYear) {
+            var yearElm = document.createElement('li');
+            yearElm.setAttribute('class', 'calendar-year');
+            yearElm.appendChild(document.createTextNode(postDate[0]));
+            calList.appendChild(yearElm);
+        }
+
+        if (postDate[1] != prevMonth) {
+            var monthElm = document.createElement('li');
+            monthElm.setAttribute('class', 'calendar-month');
+            monthElm.appendChild(document.createTextNode(postDate[1]));
+            calList.appendChild(monthElm);
+        }
+
+        if (postDate[2] != prevDay) {
+            var dayElm = document.createElement('li');
+            dayElm.setAttribute('class', 'calendar-day');
+            dayElm.appendChild(document.createTextNode(postDate[2]));
+            calList.appendChild(dayElm);
+        }
+
+        var postElm = document.createElement('li');
+        postElm.setAttribute('class', 'calendar-post');
+        var linkElm = document.createElement('a');
+        linkElm.setAttribute('title', dateSrc.getAttribute('cal-title'));
+        linkElm.setAttribute('href', dateSrc.getAttribute('cal-permalink'));
+        linkElm.appendChild(document.createTextNode(dateSrc.getAttribute('cal-title')));
+        postElm.appendChild(linkElm);
+        calList.appendChild(postElm);
+
+        prevYear = postDate[0];
+        prevMonth = postDate[1];
+        prevDay = postDate[2];
+    }
+    document.body.appendChild(calList);
+})();
+//]]>
+</script>
+{/block:IfShowCalendar}
 
 </body>
 
