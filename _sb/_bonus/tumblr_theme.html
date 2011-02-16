@@ -25,6 +25,8 @@
 	<meta name="text:Disqus Shortname" content="" />
 	<meta name="text:Twitter Username" content="" />
 	<meta name="text:Margins" content="30%" />
+	<meta name="text:SideMargins" content="73%" />	
+	<meta name="text:TextAlign" content="left" />
 	<meta name="text:Supported langs" content="['html','css','xml','javascript','latex','java','python','sh']" />
 	<meta name="text:SHJS Style" content="WyVlcsukh/sh_nedit" />
 	
@@ -155,6 +157,7 @@ code {
 }
 
 #posts .post .post-content p {
+    text-align: {text:TextAlign};
     line-height: 1.3em;
 }
 
@@ -267,7 +270,7 @@ h2.post-title a {
 
 #posts-list, ul#nav {
     position: absolute;
-    right: 73%;
+    right: {text:SideMargins};
     top: 208px;
 }
 
@@ -301,7 +304,7 @@ ul#nav li a {
     text-align: left;
     width: 150px;
     position: absolute;
-    left: 74%;
+    left: {text:SideMargins};
     top: 208px;    
 }
 
