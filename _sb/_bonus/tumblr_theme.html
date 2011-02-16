@@ -16,16 +16,20 @@
 	<meta name="color:Text" content="#000"/>
 	<meta name="color:Links" content="#600"/>
 	<meta name="color:LinksHover" content="#eee"/>
+	<meta name="color:CodeBackground" content="#fdfdff"/>
 
     <meta name="font:Body" content="Georgia">	
 	
 	<meta name="if:Show notes" content="1">
 	<meta name="if:Highlight code" content="0">	
 	<meta name="text:Disqus Shortname" content="" />
-	<meta name="text:Twitter Username" content="" />	
+	<meta name="text:Twitter Username" content="" />
+	<meta name="text:Margins" content="30%" />
 	<meta name="text:Supported langs" content="['html','css','xml','javascript','latex','java','python','sh']" />
+	<meta name="text:SHJS Style" content="WyVlcsukh/sh_nedit" />
 	
 	<!-- 'java', 'css', 'latex', 'javascript', 'html', 'xml', 'sql', 'sh', 'ruby', 'php', 'cpp', 'csharp' -->
+	<!-- 'WyVlcsukh/sh_nedit', 'wullg1j94/sh_ide-codewarrior', 'hJ4lg1k28/sh_darkblue' -->
 	
 	<meta name="color:Grays" content="#ccc"/>
 	<meta name="color:DarkGrays" content="#bbb"/>
@@ -37,7 +41,7 @@
    {block:IfHighlightCode}	
    <script type="text/javascript" src="http://static.tumblr.com/7obxgxu/ZAFlcsujf/sh_main.min.js"></script>
    
-   <link type="text/css" rel="stylesheet" href="http://static.tumblr.com/7obxgxu/WyVlcsukh/sh_nedit.min.css" />   
+   <link type="text/css" rel="stylesheet" href="http://static.tumblr.com/7obxgxu/{text:SHJS Style}.min.css" />   
    {/block:IfHighlightCode}
 		
 <style type="text/css">
@@ -52,8 +56,8 @@ body {
     font-family: {font:Body},'Times New Roman',Times,serif;
     font-size: 16px;
     color: {color:Text};    
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: {text:Margins};
+    margin-right: {text:Margins};
 }
 
 body.mobile {
@@ -156,6 +160,9 @@ code {
 
 #posts .post .post-content pre {
     font-size: 0.9em;
+    /* background-color: {color:CodeBackground};
+    border: 1px solid #eee; */
+    padding: 0 15px;
 }
 
 .post-icon {
