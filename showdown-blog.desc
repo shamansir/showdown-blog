@@ -1,0 +1,51 @@
+http://code.google.com/p/showdown-blog
+
+Blog engine written in just JS and XML [v0.6] {JavaScript, XML}
+
+
+== Showdown blog (easy as sandwich) ==
+
+{ [http://showdown-blog.googlecode.com/hg/index.html Example] }
+
+{ [Instructions] }
+
+Built with [http://attacklab.net/showdown/ Showdown]/[http://daringfireball.net/projects/markdown/ Markdown] and [http://jquery.com JQuery]
+
+  * 110.0K minified (`swblog.min.js` + `showdown.min.js` + `fdate.min.js` + `sh_main.min.js` + `jquery-1.4.3.min.js`)
+  * `swblog.js` is 18.0K, `swblog.min.js` is 11.2K, `swblog.min.js.gz` is 3.1K
+
+=== Benefits ===
+
+  * Minimal
+  * No server-side. At all.
+  * Posts are in Markdown syntax
+  * Single post is separate xml-file
+  * XML-configurable
+  * CSS-stylable
+  * Supports tags and tags navigation
+  * Supports permalinks to the post
+  * Supports mobile
+  * You can use several entry-points
+  * RSS-generating script/XSL included
+  * SHJS-based source code highlighting for programmers (only for single posts)
+  * Bonus: A sandwitch-driven [http://tumblr.com Tumblr] [http://code.google.com/p/showdown-blog/downloads/detail?name=tumblr_theme.html theme], with code highlighting and twitter support ([http://www.tumblr.com/theme/18012 Install at Tumblr])
+
+=== Drawbacks ===
+
+  * No commenting support
+  * Search-engines can't see us, may be we can teach them parse xml's too
+  * Only for Javascript-enabled browsers
+  * Javascript/JQuery takes time to render at slow network
+  * Without `.htaccess`, you need to specify `index.html` part in blog URL
+  * Things to optimize
+
+=== May be later ====
+  
+  * Paging support
+  * Successive loading
+  * Templating support
+  * Better looking RSS / Automate RSS updates
+  * Calendar
+
+http://showdown-blog.googlecode.com/hg/img/screenshot-small.png
+  
